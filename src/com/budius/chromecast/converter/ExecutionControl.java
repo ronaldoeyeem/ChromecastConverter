@@ -7,6 +7,8 @@ import java.io.File;
 import java.io.FileFilter;
 import java.io.FilenameFilter;
 import java.util.Arrays;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 import java.util.concurrent.atomic.AtomicInteger;
 
@@ -48,7 +50,9 @@ public class ExecutionControl implements Runnable {
     }
 
     private void executeFolder(File folder) {
-        for (File f : folder.listFiles(videoFilesFilter)) {
+        List<File> fileList = Arrays.asList(folder.listFiles(videoFilesFilter));
+        Collections.sort(fileList);
+        for (File f : fileList) {
             if (f.isDirectory()) {
                 executeFolder(f);
             } else {
